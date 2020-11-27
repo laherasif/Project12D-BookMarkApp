@@ -4,8 +4,7 @@
   "description": "netlify functions:create - set up for apollo graphql",
   "main": "apollo-graphql.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "netlify-lambda install"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "netlify",
@@ -18,10 +17,5 @@
   "dependencies": {
     "apollo-server-lambda": "^2.18.2",
     "graphql": "^14.1.1"
-  },
-  "devDependencies": {
-    "http-proxy-middleware": "^1.0.6",
-    "netlify-lambda": "^2.0.1",
-    "npm-run-all": "^4.1.5"
   }
 }
