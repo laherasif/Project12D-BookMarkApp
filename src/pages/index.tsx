@@ -30,24 +30,26 @@ const ADD_BOOKMARK = gql`
     }
 `
 function Home() {
+    const { loading, error, data } = useQuery(GET_TODOS);
 
     const [Loader, setLoader] = useState(false)
 
     useEffect(() => {
         return () => {
            
-          
+          setTimeout(() => {
               setLoader(false)
+              
+          }, 4000);
         
     }
-    }, [Loader ])
+    }, [ data ? Loader : null])
 
     const [addBook] = useMutation(ADD_BOOKMARK);
 
 
 
 
-    const { loading, error, data } = useQuery(GET_TODOS);
 
 
    console.log("data" , Loader)
@@ -141,6 +143,7 @@ function Home() {
 
                     </div>
                     {loading && <Cardloader />}
+                    {/* {Loader && <Cardloader />} */}
 
 
                     {error ? <h2 style={{ color: 'red' }}>Please Check Your Internet connection .......</h2> : null}
@@ -148,14 +151,14 @@ function Home() {
                         {
                             Loader ? data.BookMarks.map((todo, index: number) => {
                                 return (
-                                    <div className="col-md-4" key={index}>
+                                    <div className="col-md-4" key={index} >
                                         <div className="form" >
                                             <div className="card-group">
                                                 <div className="card">
                                                     <div className="card-body">
                                                         <div className="form-group">
                                                            
-                                                            <label htmlFor="">   <Skeleton height={20} width={`50%`} /> </label>
+                                                            <label htmlFor=""> <Skeleton height={20} width={`50%`} style={{backgroundColor:'blue'}} /> </label>
                                                             <div className="linkName">
                                                                 <h5><Skeleton width={`60%`} height={20} /></h5>
                                                             </div>
@@ -180,7 +183,7 @@ function Home() {
                                 )
                             })
                                 :
-                                data ? data.BookMarks.map((todo, index: number) => {
+                                 !loading && data ? data.BookMarks.map((todo, index: number) => {
                                     return (
 
                                         <div className="col-md-4" key={index}>
