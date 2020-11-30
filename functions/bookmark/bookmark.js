@@ -1,5 +1,8 @@
 const { ApolloServer, gql } = require('apollo-server-lambda')
-// key = fnAD6OD-QyACBcMFsavYmk2L8OkTxK5zWMj2r_Y9
+require("dotenv").config({
+  path: `.env`,
+})
+
 var faunadb = require('faunadb'),
   q = faunadb.query;
 
@@ -23,7 +26,7 @@ const typeDefs = gql`
   }
   `
 // updateTodo(task : String! , status : Boolean!):Todo
-var adminClient = new faunadb.Client({ secret: 'fnAD6OD-QyACBcMFsavYmk2L8OkTxK5zWMj2r_Y9' });
+var adminClient = new faunadb.Client({ secret: process.env.FAUNA_SECRET_KY });
 
 const resolvers = {
   Query: {
@@ -58,7 +61,6 @@ const resolvers = {
     addBook: async (_, { title , link  }) => {
 
       try {
-        // var adminClient = new faunadb.Client({ secret: 'fnAD6OD-QyACBcMFsavYmk2L8OkTxK5zWMj2r_Y9' });
         const result = await adminClient.query(
           q.Create(
             q.Collection('bookmark'),
